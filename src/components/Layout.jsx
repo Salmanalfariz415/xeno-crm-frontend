@@ -17,7 +17,9 @@ export default function Layout({ children, activePage, setActivePage }) {
   useEffect(() => {
     const checkServices = async () => {
       try {
-        await axios.get('http://localhost:5000/ping');
+        const backendUrl = import.meta.env.VITE_API_BASE_URL || 'https://xeno-crm-backend-8zj4.onrender.com/api';
+        const pingUrl = backendUrl.replace(/\/api\/?$/, '/ping');
+        await axios.get(pingUrl);
         setCrmStatus('online');
       } catch (e) {
         setCrmStatus('offline');
